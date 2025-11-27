@@ -1,0 +1,54 @@
+Create classes for books and library users.
+
+Library Users Class
+    Instance variables: 
+        Which books are checked out, which books are passed return date, 
+        money owed, ID number (8 digits generated randomly), Name, and DOB 
+    Class variables: 
+        Num of libary users, total amount of money owed, total amount
+        of books pass due date 
+
+
+Book Class
+    Instance variables: name, author, date of release, native language, genre, 
+    age classification, price (in case book not returned), is_checked_out
+    Class variable: count of books, num of books checked_out.
+
+
+Methods 
+    Check out a book, return a book, pay a payment, and become
+    a library member
+ 
+Validation:  1. can only check out books which users meet the age rating 
+             2. can only have 3 books checked out at once 
+             3. After the return date if the book is not returned, 
+                there will be a fee placed on the account
+             4. If the user cannot return the book, they will pay the price of the book
+
+Age Classifcation Guide:
+    E - For everyone 
+    T - For 13 and older
+    A - For 18 and older 
+
+Genres
+    Book:
+        Science Fiction, History, Romance, Thriller, Comedy, and Nonfiction
+
+
+
+User interface:
+    1. Can see all library books offered
+    2. Can see all library books available to be checked out (must require log in)
+    3. Can access User profile if user has a profile
+    3a. Can view all user information like books checked out, balance owned
+    3b. Can preform actions on account like pay balance, ect. 
+    4. Can create a user profile 
+
+Notes: For this project I will be creating a list of books and attributes manually.
+These will be stored as a csv file and read into the program.In the future, an 
+API can be implemented instead for gathering book data. Also, this
+project will assume that each book has one language its written in. 
+
+
+
+
