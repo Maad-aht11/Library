@@ -4,6 +4,7 @@ import datetime
 
 class User:
     
+    id_user_pair = {}
     id_list = []
     user_list = []
     total_library_users = 0
