@@ -2,6 +2,7 @@ import csv
 import time
 import library
 import datetime
+#Test for correct email
 
 #Create function to validate if user can check out books
 def validate_check_out(id_number):
