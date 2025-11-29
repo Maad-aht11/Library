@@ -74,14 +74,14 @@ def main_menu(simulated_date):
     print("4. Create a user profile")
     print("5. Simulate 1 week passing")
     print("6. Exit the program \n")
-    print (f"Current date: {simulated_date}")
+    print (f"Current date: {simulated_date.strftime("%m/%d/%Y")}")
     print("-------------------------------------------------------")
 
 
 #Run program
 simulated_date = datetime.datetime.now()
 print("Welcome to Maad's Library! \n")
-main_menu(simulated_date.strftime("%m/%d%/Y"))
+main_menu(simulated_date)
 user_input = input()
 while (user_input != 5):
 
@@ -119,21 +119,26 @@ while (user_input != 5):
         id_input = input("Please enter your ID number to validate your profile: ")
         if (library.User.id_user_pair.get(id_input) is  None):
             print("That is not a valid id in our system")
-        print("--------- User Profile Hub --------- \n \n \n")   
-        print("1. View checked out books")
-        print("2. View books passed return")
-        print("3. Return a book")
-        print("4. Pay an outstanding balance ")
-        print("------------------------------------")
-        choice_input = input("Enter the option you would like to choose")
-        if (choice_input == '1'):
-            print("--------- Checked out books ---------")
+        else:
             current_user = library.User.id_user_pair.get(id_input)
-            for date, book in current_user.books_checked_out.items():
-                print(f"You checked out {book.name} on {date.strftime("%m/%d/%Y")}")
-        
-            
-
+            print("--------- User Profile Hub --------- \n \n \n")   
+            print("1. View checked out books")
+            print("2. View books passed return")
+            print("3. Return a book")
+            print("4. Pay an outstanding balance ")
+            print(f"Current balance owed: {current_user.total_money_owed}")
+            print("------------------------------------")
+            choice_input = input("Enter the option you would like to choose")
+            if (choice_input == '1'):
+                print("--------- Checked out books ---------")
+                for date, book in current_user.books_checked_out.items():
+                    print(f"You checked out {book.name} on {date.strftime("%m/%d/%Y")}")
+            elif (choice_input == '2'):
+                print("--------- Books passed return ---------")
+                for date, book in current_user.total_books_passed_due.items():
+                    print(f"{book.name} needed to be returned by {date.strftime("%m/%d/%Y")}")
+            elif (choice_input == '4'):
+                amount_to_pay = input("Please enter how much of your balance you would like to pay off")
     elif (user_input == '4'):
         print("Thank you for choosing to become a user")
         entered_name = input("Please enter your full name: ")
@@ -145,6 +150,14 @@ while (user_input != 5):
 
     elif (user_input == '5'):
         simulated_date = simulated_date + datetime.timedelta(days=7)
-    main_menu(simulated_date.strftime("%m/%d/%Y"))
+        for user in library.User.id_user_pair.values():
+            if (len(user.books_checked_out) > 0):
+                for date_checked_out, book in user.books_checked_out.items():
+                    return_date = date_checked_out+datetime.timedelta(days=14)
+                    if (simulated_date > return_date):
+                        user.total_money_owed += 10
+                    user.total_books_passed_due.update({return_date:book})
+
+    main_menu(simulated_date)
     user_input = input()
     

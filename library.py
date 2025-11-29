@@ -6,10 +6,9 @@ class User:
     
     id_user_pair = {}
     id_list = []
-    user_list = []
     total_library_users = 0
     total_money_owed = 0
-    total_books_passed_due = 0
+    total_books_passed_due = {}
     
     def __init__(self, books_checked_out, books_passed_return, money_owed,
                  id, name, birthday):
@@ -21,6 +20,7 @@ class User:
         id = random.randint(10000000, 99999999)
         while (id in self.id_list):
             id = random.randint(10000000, 99999999)
+        self.id_list.append(id)
         self._id = str(id)
 
         name_status = False
